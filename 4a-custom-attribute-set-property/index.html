@@ -4,9 +4,15 @@
     <meta charset="utf-8" />
     <title>Custom Component with Custom Attribute</title>
     <script src="cookie-alert.js"></script>
+    <script>
+      window.onload = function() {
+        const myAlert = document.getElementById("myAlert");
+        myAlert.message = "We use cookies, but respect your privacy!";
+      }
+    </script>
   </head>
   <body>
     <h1>Here is your web component</h1>
-    <cookie-alert />
+    <cookie-alert id="myAlert" />
   </body>
 </html>

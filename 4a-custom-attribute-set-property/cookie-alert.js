@@ -24,17 +24,31 @@ class CookieAlert extends HTMLElement {
     this.createComponent();
   }
 
+  get message() {
+    return this._message;
+  }
+
+  set message(value) {
+    this._message = value;
+    this.updateMessage();
+  }
+
   createComponent() {
     const style = document.createElement("style");
     style.appendChild(document.createTextNode(styleRules));
     this.appendChild(style);
 
     const span = document.createElement("span");
-    span.innerText = this._message;
     const div = document.createElement("div");
     div.classList.add("container", "footer");
     div.appendChild(span);
     this.appendChild(div);
+
+    this.updateMessage();
+  }
+
+  updateMessage() {
+    this.querySelector("span").innerText = this._message;
   }
 
 }
