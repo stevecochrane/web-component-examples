@@ -56,6 +56,7 @@ class CookieAlert extends HTMLElement {
   constructor() {
     super();
     this._message = "This website uses cookies to ensure you get the best experience.";
+    this._eventListeners = [];
   }
 
   connectedCallback() {
@@ -65,6 +66,12 @@ class CookieAlert extends HTMLElement {
     } else {
       this.createComponent();
     }
+  }
+
+  disconnectedCallback() {
+    this._eventListeners.forEach((registration) => {
+      registration.object.removeEventListener(registration.event, registration.listener);
+    });
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -94,14 +101,20 @@ class CookieAlert extends HTMLElement {
     const closeButton = document.createElement("button");
     closeButton.classList.add("button");
     closeButton.innerText = "Close";
-    closeButton.addEventListener("click", () => {
+    const closeButtonClickHandler = () => {
       this.hide();
+    };
+    closeButton.addEventListener("click", closeButtonClickHandler);
+    this._eventListeners.push({
+      object: closeButton,
+      event: "click",
+      handler: closeButtonClickHandler
     });
 
     const acceptButton = document.createElement("button");
     acceptButton.classList.add("button");
     acceptButton.innerText = "Accept";
-    acceptButton.addEventListener("click", () => {
+    const acceptButtonClickHandler = () => {
       this.hide();
       setCookie("cookiesAccepted", "y", 365);
       this.dispatchEvent(new CustomEvent("accepted", {
@@ -110,6 +123,12 @@ class CookieAlert extends HTMLElement {
           acceptedCookieExpiration: 365
         }
       }));
+    };
+    acceptButton.addEventListener("click", acceptButtonClickHandler);
+    this._eventListeners.push({
+      object: acceptButton,
+      event: "click",
+      handler: acceptButtonClickHandler
     });
 
     const span = document.createElement("span");
