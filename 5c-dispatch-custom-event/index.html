@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Custom Component with Custom Attribute</title>
+    <script src="cookie-alert.js"></script>
+    <script>
+      window.onload = function() {
+        const cookieAlert = document.querySelector("cookie-alert");
+        cookieAlert.addEventListener("accepted", (event) => {
+          alert(`Thanks for accepting our cookie policy. You need to confirm again in ${event.detail.acceptedCookieExpiration} days.`);
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Here is your web component</h1>
+    <cookie-alert message="We use cookies, but respect your privacy!" />
+  </body>
+</html>
