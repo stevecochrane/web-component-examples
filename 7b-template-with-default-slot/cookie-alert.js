@@ -24,8 +24,7 @@ template.innerHTML = `
     }
   </style>
   <div class="container footer">
-    <slot id="message" name="message">This is the <strong>default</strong> message.</slot>
-    <slot name="reference"></slot>
+    <slot id="message">This is the <strong>default</strong> message.</slot>
     <button id="close-button" class="button">Close</button>
     <button id="accept-button" class="button">Accept</button>
   </div>
