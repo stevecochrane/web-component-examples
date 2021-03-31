@@ -19,14 +19,6 @@
         cookieAlert.addEventListener("accepted", (event) => {
           alert(`Thanks for accepting our cookie policy. You need to confirm again in ${event.detail.acceptedCookieExpiration} days.`);
         });
-
-        const componentDOM = cookieAlert.shadowRoot;
-        if (componentDOM) {
-          let buttons = componentDOM.querySelectorAll("button");
-          buttons.forEach((btn) => {
-            btn.disabled = true;
-          });
-        }
       };
     </script>
   </head>
